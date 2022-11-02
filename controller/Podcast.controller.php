@@ -86,7 +86,9 @@ class Podcast extends DB{
                 $add = " AND id = ?";
                 array_push($data,$this->d->idPodcast);
             }
-            $rdb = $this->db->prepare("SELECT * FROM podcast_principal WHERE 1 = 1 {$add}");
+            $rdb = $this->db->prepare("SELECT * FROM podcast_principal_bandas 
+                                        INNER JOIN podcast_principal_canciones ON podcast_principal_canciones.id_parent = podcast_principal_bandas.id
+                                       WHERE 1 = 1 {$add}");
             if($rdb->execute($data)){
                 $data = $rdb->fetchAll(PDO::FETCH_OBJ);
                 return array('status'=>200,'data'=>$data);
