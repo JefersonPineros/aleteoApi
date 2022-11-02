@@ -10,6 +10,8 @@ class PodcastUser {
 
     private $check_terminos;
 
+    private $time_audio;
+
     private $register_create;
 
 
@@ -39,6 +41,14 @@ class PodcastUser {
 
     function getCheckTerminos() {
         return $this->check_terminos;
+    }
+
+    function setTimeAudio($time_audio) {
+        $this->time_audio = $time_audio;
+    }
+
+    function getTimeAudio() {
+        return $this->time_audio;
     }
 
     function setCheckTerminos($check_terminos) {

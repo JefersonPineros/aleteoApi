@@ -30,6 +30,7 @@ class Podcast extends DB{
                 $newPodcast->setCheckTerminos($this->podcastModel->check_terminos);
                 $baseSaveUrl = $baseFolder.$newPodcast->geNameUser().'-'.date('YmdHis').'.mp3';
                 $newPodcast->setUrlPodcast('http://localhost/swAleteoCrea'.substr($baseSaveUrl,2));
+                $newPodcast->setTimeAudio($this->podcastModel->time_audio);
                 $newPodcast->setRegisterCreate(date('Y-m-d H:i:s'));
             } else  {
                 return array('status' => 500, 'msg' => 'Terminos y condiciones no aceptados o no diligenciado el nombre de usuario.');
@@ -37,13 +38,14 @@ class Podcast extends DB{
 
             file_put_contents($baseSaveUrl, base64_decode($this->podcastFile));
             
-            $insertPodcast = $this->db->prepare("INSERT INTO podcast_users (url_podcast, name_user,check_terminos,register_create) VALUES(?,?,?,?)");
+            $insertPodcast = $this->db->prepare("INSERT INTO podcast_users (url_podcast, name_user,check_terminos,time_audio,register_create) VALUES(?,?,?,?,?)");
 
             if($insertPodcast->execute(
                 array(
                     $newPodcast->geUrlPodcast(),
                     $newPodcast->geNameUser(),
                     $newPodcast->getCheckTerminos(),
+                    $newPodcast->getTimeAudio(),
                     $newPodcast->getRegisterCreate()
                     )
                 )){
@@ -66,7 +68,7 @@ class Podcast extends DB{
                 $add = " AND id = ?";
                 array_push($data,$this->d->idPodcast);
             }
-            $rdb = $this->db->prepare("SELECT * FROM podcast_users WHERE 1 = 1 {$add}");
+            $rdb = $this->db->prepare("SELECT * FROM podcast_users WHERE check_terminos = 1 {$add}");
             if($rdb->execute($data)){
                 $data = $rdb->fetchAll(PDO::FETCH_OBJ);
                 return array('status'=>200,'data'=>$data);
