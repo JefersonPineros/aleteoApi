@@ -52,7 +52,7 @@ class Podcast extends DB{
                 $id = $this->db->lastInsertId();
                 return array('status'=>200,'msg'=>'Insertado correctamente','data'=>$id);
             } else {
-                return array('status'=>200,'msg'=>'Error en inserción de información');
+                return array('status'=>501,'msg'=>'Error en inserción de información');
             }
             
         } catch (Throwable $th) {
