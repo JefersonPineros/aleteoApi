@@ -3,7 +3,7 @@
 include '../models/CreatePodcast.php';
 include '../models/CreatePodcastUser.php';
 
-class Visitas extends DB{
+class Visita extends DB{
 
     private $db;
     private $d;
