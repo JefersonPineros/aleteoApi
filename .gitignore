@@ -51,3 +51,4 @@ Thumbs.db
 
 # Archivos
 /files/*
+/controller/db.php

@@ -29,7 +29,7 @@ class Podcast extends DB{
                 $newPodcast->setNameUser($this->podcastModel->name_user);
                 $newPodcast->setCheckTerminos($this->podcastModel->check_terminos);
                 $baseSaveUrl = $baseFolder.$newPodcast->geNameUser().'-'.date('YmdHis').'.mp3';
-                $newPodcast->setUrlPodcast('http://localhost/swAleteoCrea'.substr($baseSaveUrl,2));
+                $newPodcast->setUrlPodcast('http://museointeractivoaleteo.com/api/'.substr($baseSaveUrl,2));
                 $newPodcast->setTimeAudio($this->podcastModel->time_audio);
                 $newPodcast->setRegisterCreate(date('Y-m-d H:i:s'));
             } else  {

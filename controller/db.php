@@ -2,11 +2,11 @@
 
 class DB {
     private static $dbConnection;
-    private static $db = "aleteo";
+    private static $db = "u523874518_museo";
     private static $host = "localhost";
     private static $port = "3306";
-    private static $user = "root";
-    private static $password = "";
+    private static $user = "u523874518_museo";
+    private static $password = ';Te$wvK~7';
 
     public static function conectarDB(){
         try{
