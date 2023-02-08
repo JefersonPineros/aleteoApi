@@ -123,14 +123,34 @@ class Podcast extends DB{
         }
     }
 
+    public function getDataPodcastUserAll(){
+        try{
+            $data = array();
+            $add = "";
+            if(isset($this->d->idPodcast) && $this->d->idPodcast != ''){
+                $add = " AND id = ?";
+                array_push($data,$this->d->idPodcast);
+            }
+            $rdb = $this->db->prepare("SELECT * FROM podcast_users {$add}");
+            if($rdb->execute($data)){
+                $data = $rdb->fetchAll(PDO::FETCH_OBJ);
+                return array('status'=>200,'data'=>$data);
+            }else{
+                return array('status'=>501,'msg'=>'Error en obtener data');
+            }
+        }catch (Throwable $t){
+            return array('status'=>500,'msg'=>$t->getMessage());
+        }
+    }
+
     /**
      * Acctualiza un registro
      */
-    public function updateRow(){
+    public function setStatusPodcast(){
         try{
-            if(isset($this->d->id) && isset($this->d->name)){
-                $rdb = $this->db->prepare("UPDATE caja SET name = ? WHERE id = ?");
-                if($rdb->execute(array($this->d->name,$this->d->id))){
+            if(isset($this->d->id) && isset($this->d->status)){
+                $rdb = $this->db->prepare("UPDATE podcast_users SET check_terminos = ? WHERE id = ?");
+                if($rdb->execute(array(($this->d->status == 1)? 0 : 1,$this->d->id))){
                     return array('status'=>200,'msg'=>'Actualizado correctamente');
                 }else{
                     return array('status'=>501,'msg'=>'Error en actualización de información');
